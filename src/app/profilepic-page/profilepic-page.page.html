@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>profilepicPage</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="profile-image">
+  <div class="profile-image">
+    <ion-img src="{{imgurl}}"></ion-img>
+  </div>
+  <div>
+    <ion-button class="round outline" (click)="chooseimage()">Choose an image</ion-button>
+  </div>
+  <div >
+    <ion-button class="round outline" (click)="proceed()">Skip this step</ion-button>
+  </div>
+  <div >
+    <ion-button class="round outline" (click)="updateproceed()">Upload & proceed</ion-button>
+  </div>
+</ion-content>
