@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
   signin() {
     this.authservice.login(this.credentials).then( (res: any) => {
       if(!res.code) {
-        this.navCtrl.navigateRoot('/tabs')
+        this.navCtrl.navigateRoot('/tabs/chats')
       }
       else 
         alert(res);

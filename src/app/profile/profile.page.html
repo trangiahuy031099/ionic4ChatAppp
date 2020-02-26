@@ -5,5 +5,17 @@
 </ion-header>
 
 <ion-content>
-
+  <div class="profile-image" (click)="editimage()">
+    <img src="{{avatar}}" alt="">
+  </div>
+  <div>
+    <h2 (click)="editname()">{{displayName}}</h2>
+  </div>
+  <div>
+    Tap on your pic or nickname to change it.
+  </div>
+  <div class="spacer" style="height: 10px;"></div>
+  <div>
+    <ion-button class="round outline" color="danger" (click)="logout()">Logout</ion-button>
+  </div>
 </ion-content>

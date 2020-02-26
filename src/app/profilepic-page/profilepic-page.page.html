@@ -11,10 +11,10 @@
   <div>
     <ion-button class="round outline" (click)="chooseimage()">Choose an image</ion-button>
   </div>
-  <div >
+  <div *ngIf="!moveon">
     <ion-button class="round outline" (click)="proceed()">Skip this step</ion-button>
   </div>
-  <div >
+  <div *ngIf="moveon">
     <ion-button class="round outline" (click)="updateproceed()">Upload & proceed</ion-button>
   </div>
 </ion-content>

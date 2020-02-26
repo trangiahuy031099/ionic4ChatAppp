@@ -1,9 +1,43 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>chats</ion-title>
+    <ion-buttons slot="end">
+      <ion-button icon-only (click)="addbuddy()">
+        <ion-icon name="person-add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <ion-list no-lines>
+    <ion-list-header>Requests</ion-list-header>
+      <ion-item-sliding *ngFor="let item of myrequests">
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="{{item.photoURL}}">
+          </ion-avatar>
+          <h4>{{item.displayName}}</h4>
+        </ion-item>
+        <ion-item-options>
+          <ion-button color="secondary" (click)="accept(item)">
+            <ion-icon name="checkmark"></ion-icon>
+            Add
+          </ion-button>
+          <ion-button color="danger">
+            <ion-icon name="trash"></ion-icon>
+            Nope
+          </ion-button>
+        </ion-item-options>
+      </ion-item-sliding>
+    <ion-list-header>
+      Friends
+    </ion-list-header>
+    <ion-item *ngFor="let item of myfriends" (click)="buddychat(item)">
+      <ion-avatar item-left>
+        <img src="{{item.photoURL}}">
+      </ion-avatar>
+      <h3>{{item.displayName}}</h3>
+    </ion-item>
+  </ion-list>
 </ion-content>

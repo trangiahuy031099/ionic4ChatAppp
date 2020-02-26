@@ -23,6 +23,14 @@ const routes: Routes = [
   {
     path: 'passwordreset',
     loadChildren: () => import('./passwordreset/passwordreset.module').then( m => m.PasswordresetPageModule)
+  },
+  {
+    path: 'buddies',
+    loadChildren: () => import('./buddies/buddies.module').then( m => m.BuddiesPageModule)
+  },
+  {
+    path: 'buddychat',
+    loadChildren: () => import('./buddychat/buddychat.module').then( m => m.BuddychatPageModule)
   }
 ];
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
+import { resolve } from 'url';
 @Injectable({
   providedIn: 'root'
 })
@@ -63,6 +64,55 @@ export class UserService {
         reject(err);
       })
     })
+    return promise;
+  }
+
+  getuserdetails() {
+    var promise = new Promise( (resolve , reject) => {
+      this.firebasedata.child(firebase.auth().currentUser.uid).once('value' , (snapshot) => {
+        resolve(snapshot.val());
+      }).catch( err => {
+        reject(err);
+      });
+    });
+    return promise;
+  }
+
+  updatedisplayname(newname) {
+    var promise = new Promise( (resolve, reject) => {
+      this.afAuth.auth.currentUser.updateProfile({
+        displayName: newname,
+        photoURL: this.afAuth.auth.currentUser.photoURL
+      }).then ( () => {
+        this.firebasedata.child(firebase.auth().currentUser.uid).update({
+          displayName: newname,
+          photoURL: this.afAuth.auth.currentUser.photoURL,
+          uid: this.afAuth.auth.currentUser.uid
+        }).then( () => {
+          resolve({ success: true});
+        }).catch( err => {
+          reject(err);
+        })
+      }).catch( err => {
+        reject(err);
+      })
+    })
+    return promise;
+  }
+
+  getallusers() {
+    var promise = new Promise( (resolve, reject) => {
+      this.firebasedata.orderByChild('uid').once('value' , (snapshot) => {
+        let userdata = snapshot.val();
+        let temparr = [];
+        for (var key in userdata) {
+          temparr.push(userdata[key]);
+        }
+        resolve(temparr);
+      }).catch(err => {
+        reject(err);
+      });
+    });
     return promise;
   }
 }
