@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>groupbuddies</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
+  <ion-list no-lines>
+    <ion-item-sliding *ngFor="let key of myfriends">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="{{key.photoURL}}" alt="">
+        </ion-avatar>
+        <h2>{{key.displayName}}</h2>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-button color="primary" (click)="addbuddy(key)">
+          <ion-icon name="person-add"></ion-icon>
+          Add
+        </ion-button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

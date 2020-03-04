@@ -31,6 +31,26 @@ const routes: Routes = [
   {
     path: 'buddychat',
     loadChildren: () => import('./buddychat/buddychat.module').then( m => m.BuddychatPageModule)
+  },
+  {
+    path: 'newgroup',
+    loadChildren: () => import('./newgroup/newgroup.module').then( m => m.NewgroupPageModule)
+  },
+  {
+    path: 'groupchat',
+    loadChildren: () => import('./groupchat/groupchat.module').then( m => m.GroupchatPageModule)
+  },
+  {
+    path: 'groupbuddies',
+    loadChildren: () => import('./groupbuddies/groupbuddies.module').then( m => m.GroupbuddiesPageModule)
+  },
+  {
+    path: 'groupmember',
+    loadChildren: () => import('./groupmember/groupmember.module').then( m => m.GroupmemberPageModule)
+  },
+  {
+    path: 'groupinfo',
+    loadChildren: () => import('./groupinfo/groupinfo.module').then( m => m.GroupinfoPageModule)
   }
 ];
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController,Events, AlertController } from '@ionic/angular';
 import { RequestsService } from '../services/requests/requests.service'
+import { ChatService } from '../services/chat/chat.service';
 @Component({
   selector: 'app-chats',
   templateUrl: './chats.page.html',
@@ -13,7 +14,8 @@ export class ChatsPage implements OnInit {
     public navCtrl: NavController,
     public events: Events,
     public requestservice: RequestsService,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public chatservice: ChatService
     ) { }
 
   ngOnInit() {
@@ -31,6 +33,8 @@ export class ChatsPage implements OnInit {
     this.events.subscribe('friends' , () => {
       this.myfriends = [];
       this.myfriends = this.requestservice.myfriends
+      
+      
     })
   }
 
@@ -63,5 +67,10 @@ export class ChatsPage implements OnInit {
       });
       alert.present();
     })
+  }
+
+  buddychat(buddy) {
+    this.chatservice.initializebuddy(buddy);
+    this.navCtrl.navigateForward('/buddychat');
   }
 }

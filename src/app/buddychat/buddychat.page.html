@@ -1,9 +1,44 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>buddychat</ion-title>
+    <ion-title>{{buddy.displayName}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="sendPicMsg()">
+        <ion-icon name="camera"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content #content>
+  <div>
+      <ion-list no-line>
+        <ion-item *ngFor="let item of allmessages; let i = index" class="ion-text-wrap">
+          
+          <ion-avatar slot="end" *ngIf="item.sentby === buddy.uid">
+            <img src="{{buddy.photoURL}}">
+          </ion-avatar>
+          <div slot="end" *ngIf="item.sentby === buddy.uid">
+            <h3>{{item.message}}</h3>
+            <!-- <img src="{{item.message}}" > -->
+          </div>
+          <ion-avatar slot="start" *ngIf="item.sentby !== buddy.uid">
+            <img src="{{photoURL}}" alt="">
+          </ion-avatar>
+          <div slot="start" *ngIf="item.sentby !== buddy.uid"> 
+            <h3>{{item.message}}</h3>
+            <!-- <img src="{{item.message}}"> -->
+          </div>
+        </ion-item>
+      </ion-list>
+  </div>
 </ion-content>
+<ion-footer ion-fixed>
+  <ion-toolbar ion-no-padding color="white">
+    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>
+    <ion-buttons slot="end">
+      <ion-button (click)="addmessage()">
+        <ion-icon name="send" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

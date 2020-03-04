@@ -12,7 +12,7 @@ import { Button } from 'protractor';
 })
 export class BuddiesPage implements OnInit {
   newrequest = {} as connreq; 
-  teamparr = [];
+  temparr = [];
   fillteredusers = [];
   constructor(
     public navCtrl: NavController,
@@ -22,7 +22,8 @@ export class BuddiesPage implements OnInit {
   ) { 
     this.userservice.getallusers().then( (res: any) => {
       this.fillteredusers = res;
-      this.teamparr = res;
+      this.temparr = res;
+      
     })
   }
 
@@ -30,7 +31,7 @@ export class BuddiesPage implements OnInit {
   }
 
   searchuser(searchbar) {
-    this.fillteredusers = this.teamparr;
+    this.fillteredusers = this.temparr;
     var q = searchbar.target.value;
     if(q.trim() == '') {
       return;
@@ -61,12 +62,11 @@ export class BuddiesPage implements OnInit {
         buttons: ['Ok'] 
       });
       this.requestsservice.sendrequest(this.newrequest).then( (res: any) => {
-        
-          
+        if(res.success) {
           successalert.present();
           let sentuser = this.fillteredusers.indexOf(recipient);
           this.fillteredusers.splice(sentuser, 1);
-        
+        }        
       }).catch( async (err) => {
         let alert = await this.alertCtrl.create({
           message: `${err}`
@@ -75,5 +75,7 @@ export class BuddiesPage implements OnInit {
       })
     }
   }
+
+ 
 
 }

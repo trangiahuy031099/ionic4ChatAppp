@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>groupmember</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
+  <ion-list no-lines>
+    <ion-item-sliding *ngFor="let key of groupmembers">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="{{key.photoURL}}" alt="">
+        </ion-avatar>
+        <h2>{{key.displayName}}</h2>
+        <ion-item-options side="end">
+          <ion-button color="danger" (click)="removemember(key)">
+            <ion-icon name="trash"></ion-icon>
+            Remove
+          </ion-button>
+        </ion-item-options>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
