@@ -1,27 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>buddies</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="chats"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Thêm bạn</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
-  <ion-list no-lines>
-    <ion-list>
-      <ion-item-sliding *ngFor=" let key of fillteredusers">
-        <ion-item>
-          <ion-avatar item-left>
-            <img src="{{key.photoURL}}">
-          </ion-avatar>
-          <h2> {{key.displayName}}</h2>
-        </ion-item>
-        <ion-item-options slide="left">
-          <ion-button color="primary" (click)="sendreq(key)">
-            <ion-icon name="person-add"></ion-icon>
-            Add
-          </ion-button>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
+  <ion-list *ngFor=" let key of fillteredusers">
+    <!-- <ion-item-sliding > -->
+    <ion-item>
+      <ion-button slot="end" color="primary" (click)="sendreq(key)" fill="outline" shape="round">
+        <ion-icon name="person-add"></ion-icon>
+        Add
+      </ion-button>
+      <ion-avatar slot="start">
+        <img src="{{key.photoURL}}">
+      </ion-avatar>
+      <ion-label>
+        <h2> {{key.displayName}}</h2>
+      </ion-label>
+    </ion-item>
+    <!-- <ion-item-options slide="left">
+        <ion-button color="primary" (click)="sendreq(key)">
+          <ion-icon name="person-add"></ion-icon>
+          Add
+        </ion-button>
+      </ion-item-options>
+    </ion-item-sliding> -->
   </ion-list>
 </ion-content>

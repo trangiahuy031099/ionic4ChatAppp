@@ -1,31 +1,32 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="background">
-  <ion-card>
-    <ion-card-header>Login</ion-card-header>
-    <ion-card-content>
-      <ion-list class="ion-no-lines">
-        <div class="spacer" style="height: 10px;"></div>
-        <ion-item>
-          <ion-input type="mail" placeholder="Email" [(ngModel)]="credentials.email"></ion-input>
-        </ion-item>
-        <div class="spacer" style="height: 5px;"></div>
-        <ion-item>
-          <ion-input type="password" placeholder="Password" [(ngModel)]="credentials.password"></ion-input>
-        </ion-item>
-        <div class="spacer" style="height: 10px;"></div>
-        <a (click)="passwordreset()"> Forgot login details ? <b> Get Help </b></a>
-        <div class="spacer" style="height: 10px;"></div>
-        <ion-button class="black round outline" color="light" (click)="signin()">Login</ion-button>
-        <div class="spacer" style="height: 10px;"></div>
-        <p>OR</p>
-        <div class="spacer" style="height: 10px;"></div>
-        <ion-button class="clear full" color="light" (click)="signup()">Don't have an account? Sign up</ion-button>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <div class="ion-text-center ion-padding" style="padding-bottom: 0px;">
+    <img style="height: 100px; " src="../../assets/images/message.png">
+    <h3>Welcome to Ionic Started Messenger</h3>
+  </div>
+  <div class="ion-padding" style="padding-top: 0px">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="credentials.email" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" min='6' [(ngModel)]="credentials.password" required></ion-input>
+      </ion-item>
+    </ion-list>
+    <p class="ion-text-right">
+      <small><a (click)="passwordreset()"> Forgot login details ? <b> Get Help </b></a></small>
+    </p>
+
+    <ion-button style="height: 50px;" color="primary" (click)="signin()" expand="block">Login
+    </ion-button>
+    <div class="ion-text-center ion-padding">
+      Login With
+      <a (click)="auth.GoogleAuth()">Google <ion-icon name="logo-google"></ion-icon></a> |
+      <a (click)="authService.FacebookAuth()">Facebook <ion-icon name="logo-facebook"></ion-icon></a>
+    </div>
+    <p class="ion-text-center"><ins>Don't have a account?</ins></p>
+    <ion-button style="height: 50px;" color="success" (click)="signup()" expand="block">Sign up</ion-button>
+
+  </div>
 </ion-content>

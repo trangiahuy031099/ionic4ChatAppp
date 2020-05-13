@@ -1,44 +1,47 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>groupchat</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{groupName}}</ion-title>
     <ion-buttons slot="end">
-      <ion-button *ngIf="owner" icon-only (click) = "presentOwnerSheet()">
+      <ion-button *ngIf="owner" icon-only (click)="presentOwnerSheet()">
         <ion-icon name="menu"></ion-icon>
       </ion-button>
-      <ion-button *ngIf="!owner" icon-only (click)= "presentMemberSheet()">
+      <ion-button *ngIf="!owner" icon-only (click)="presentMemberSheet()">
         <ion-icon name="menu"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content #content class="ion-padding">
-  <div>
-    <ion-list no-lines>
-      <ion-item *ngFor="let item of allgroupmsgs; let i = index" class="ion-text-wrap">
-        <ion-avatar slot="start"  *ngIf="item.sentby === alignuid">
-          <img src="{{photoURL}}" alt="">
-        </ion-avatar>
-        <div  *ngIf="item.sentby === alignuid">
-          <h6 style="color: mediumpurple;">{{item.displayName}}</h6>
-          <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
-          <img src="{{item.message}}" *ngIf="imgornot[i]">
-          <p><small>{{item.timestamp}}</small></p>
-        </div>
-        <ion-avatar slot="end" *ngIf="item.sentby != alignuid">
-          <img src="{{item.photoURL}}">
-        </ion-avatar>
-        <div *ngIf="item.sentby != alignuid">
-          <h6 style="color: mediumpurple;">{{item.displayName}}</h6>
-          <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
-          <img src="{{item.message}}" *ngIf="imgornot[i]">
-          <p><small>{{item.timestamp}}</small></p>
-        </div>
-      </ion-item>
-    </ion-list>
-  </div>
+<ion-content #content>
+  <ion-list class="ion-no-padding" lines="none" *ngFor="let item of allgroupmsgs; let i = index">
+    <ion-item *ngIf="item.sentby === alignuid" class="ion-float-right" style="padding-left: 12%;">
+      <ion-avatar slot="end">
+        <img src="{{item.photoURL}}">
+      </ion-avatar>
+      <ion-label id="me">
+        <h2>{{item.displayName}}</h2>
+        <h3 *ngIf="!imgornot[i]" class="ion-text-wrap">{{item.message}}</h3>
+        <img src="{{item.message}}" *ngIf="imgornot[i]">
+        <!-- <p><small>{{item.timestamp}}</small></p> -->
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="item.sentby != alignuid" style="padding-right: 12%;" class="ion-float-left">
+      <ion-avatar slot="start">
+        <img src="{{item.photoURL}}">
+      </ion-avatar>
+      <ion-label id="friend">
+        <h2 style="color: mediumpurple;">{{item.displayName}}</h2>
+        <h3 *ngIf="!imgornot[i]" class="ion-text-wrap">{{item.message}}</h3>
+        <img src="{{item.message}}" *ngIf="imgornot[i]">
+        <!-- <p><small>{{item.timestamp}}</small></p> -->
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
-<ion-footer ion-fixed>
+<ion-footer>
   <ion-toolbar color="white">
     <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>
     <ion-buttons slot="end" (click)="addgroupmsg()">

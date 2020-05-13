@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
-import { NavController,Events, AlertController, IonContent, LoadingController } from '@ionic/angular';
+import { NavController, Events, AlertController, IonContent, LoadingController } from '@ionic/angular';
 import { RequestsService } from '../services/requests/requests.service'
 import { ChatService } from '../services/chat/chat.service';
 import { ImghandlerService } from '../services/imghandler/imghandler.service';
@@ -11,7 +11,7 @@ import * as firebase from 'firebase';
   styleUrls: ['./buddychat.page.scss'],
 })
 export class BuddychatPage implements OnInit {
-  @ViewChild('content' , {static: false}) content: IonContent;
+  @ViewChild('content', { static: false }) content: IonContent;
   newmessage;
   buddy: any;
   allmessages = [];
@@ -26,13 +26,13 @@ export class BuddychatPage implements OnInit {
     public zone: NgZone,
     public loadingCtrl: LoadingController,
     public imgstore: ImghandlerService
-  ) { 
+  ) {
     this.buddy = this.chatservice.buddy;
     this.photoURL = firebase.auth().currentUser.photoURL;
     this.scrollto();
-    this.events.subscribe('newmessage' , () => {
+    this.events.subscribe('newmessage', () => {
       this.allmessages = [];
-      this.zone.run( () => {
+      this.zone.run(() => {
         this.allmessages = this.chatservice.buddymessages;
         /* for( var key in this.allmessages) {
           if(this.allmessages[key].message.substring(0 , 4) == 'http')
@@ -44,7 +44,7 @@ export class BuddychatPage implements OnInit {
     })
   }
   addmessage() {
-    this.chatservice.addnewmessage(this.newmessage).then( () => {
+    this.chatservice.addnewmessage(this.newmessage).then(() => {
       this.content.scrollToBottom();
       this.newmessage = '';
     })
@@ -55,30 +55,30 @@ export class BuddychatPage implements OnInit {
   }
 
   scrollto() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.content.scrollToBottom();
     }, 1000);
   }
 
-   async sendPicMsg() {
+  async sendPicMsg() {
     let loader = await this.loadingCtrl.create({
       message: 'Please wait'
     });
     loader.present();
-    this.imgstore.picmsgstore().then( (imgurl) => {
+    this.imgstore.picmsgstore().then((imgurl) => {
       loader.dismiss();
-      this.chatservice.addnewmessage(imgurl).then( () => {
+      this.chatservice.addnewmessage(imgurl).then(() => {
         this.scrollto();
-        this.newmessage= '';
+        this.newmessage = '';
       })
-    }).catch( err => {
+    }).catch(err => {
       alert(err);
       loader.dismiss();
     })
-  } 
+  }
   ngOnInit() {
-    
-    
+
+
   }
 
 }

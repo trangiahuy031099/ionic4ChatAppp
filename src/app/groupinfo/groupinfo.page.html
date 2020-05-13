@@ -1,11 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>groupinfo</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Group info</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list no-lines>
+  <ion-list>
     <ion-list-header>
       Group Members
     </ion-list-header>
@@ -13,8 +16,10 @@
       <ion-avatar slot="start">
         <img src="{{item.photoURL}}" alt="">
       </ion-avatar>
-      <h2>{{item.displayName}}</h2>
-      <small>Member</small>
+      <ion-label>
+        <h2>{{item.displayName}}</h2>
+        <small>Member</small>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

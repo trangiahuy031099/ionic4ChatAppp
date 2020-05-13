@@ -1,7 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>chats</ion-title>
+    <ion-title class="ion-text-center">Chat</ion-title>
     <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="camera"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="open"></ion-icon>
+      </ion-button>
       <ion-button icon-only (click)="addbuddy()">
         <ion-icon name="person-add"></ion-icon>
       </ion-button>
@@ -10,26 +16,27 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list no-lines>
+  <ion-searchbar></ion-searchbar>
+  <!-- <ion-list>
     <ion-list-header>Requests</ion-list-header>
-      <ion-item-sliding *ngFor="let item of myrequests">
-        <ion-item>
-          <ion-avatar item-left>
-            <img src="{{item.photoURL}}">
-          </ion-avatar>
-          <h4>{{item.displayName}}</h4>
-        </ion-item>
-        <ion-item-options>
-          <ion-button color="secondary" (click)="accept(item)">
-            <ion-icon name="checkmark"></ion-icon>
-            Add
-          </ion-button>
-          <ion-button color="danger">
-            <ion-icon name="trash"></ion-icon>
-            Nope
-          </ion-button>
-        </ion-item-options>
-      </ion-item-sliding>
+    <ion-item-sliding *ngFor="let item of myrequests">
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="{{item.photoURL}}">
+        </ion-avatar>
+        <h4>{{item.displayName}}</h4>
+      </ion-item>
+      <ion-item-options>
+        <ion-button color="secondary" (click)="accept(item)">
+          <ion-icon name="checkmark"></ion-icon>
+          Add
+        </ion-button>
+        <ion-button color="danger">
+          <ion-icon name="trash"></ion-icon>
+          Nope
+        </ion-button>
+      </ion-item-options>
+    </ion-item-sliding>
     <ion-list-header>
       Friends
     </ion-list-header>
@@ -39,5 +46,49 @@
       </ion-avatar>
       <h3>{{item.displayName}}</h3>
     </ion-item>
+  </ion-list> -->
+  <ion-list *ngFor="let item of myfriends">
+    <ion-item-sliding>
+      <ion-item-options side="start">
+        <ion-item-option color='light'>
+          <ion-buttons>
+            <ion-button shape="round">
+              <ion-icon slot="icon-only" color='primary' name="call"></ion-icon>
+            </ion-button>
+            <ion-button shape="round">
+              <ion-icon slot="icon-only" color="success" name="videocam"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item  (click)="buddychat(item)">
+        <ion-avatar slot="start">
+          <img src="{{item.photoURL}}">
+        </ion-avatar>
+        <ion-label>
+          <h3>{{item.displayName}}
+            <ion-note class="ion-float-right" slot="end">
+              10:45 AM
+            </ion-note>
+          </h3>
+          <p>Listen, I've had a pretty messssssssssssssssssssssssssssssssed up day...</p>
+
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="light">
+          <ion-buttons>
+            <ion-button shape="round">
+              <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
+            </ion-button>
+            <ion-button shape="round" (click)='presentActionSheet()'>
+              <ion-icon slot="icon-only" name="menu"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

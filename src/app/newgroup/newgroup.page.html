@@ -1,20 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add a new Group</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="groups"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Crate new group
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="profile-image" (click)="chooseimage()">
+<ion-content class="ion-padding ion-text-center">
+  <h2>{{newgroup.groupName}}
+    <ion-chip slot="end" (click)="editgroupname()">
+      <ion-label>Edit</ion-label>
+    </ion-chip>
+  </h2>
+  <div class="ion-padding">
+    <ion-avatar>
+      <img src="{{newgroup.groupPic}}" (click)="chooseimage()">
+    </ion-avatar>
+  </div>
+  <ion-button shape="round" (click)="chooseimage()">Choose group's image </ion-button>
+  <!-- <div class="ion-text-center" (click)="chooseimage()">
     <img src="{{newgroup.groupPic}}">
-  </div>
-  <div>
-    <h2 (click)="editgroupname()">{{newgroup.groupName}}</h2>
-  </div>
-  <div>
-    Tap on the pic or group name to change it.
-  </div>
-  <div>
-    <ion-button class="round outline" (click)="creategroup()">Create</ion-button>
+  </div> -->
+  <div style="padding-top: 10%;padding-bottom: auto;">
+    <ion-button expand="block" fill="outline" shape="round" color="success" (click)="creategroup()"
+      style="height: 60px;">Create</ion-button>
   </div>
 </ion-content>

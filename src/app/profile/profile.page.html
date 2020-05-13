@@ -1,21 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title class="ion-text-center">Your profile</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <div class="profile-image" (click)="editimage()">
-    <img src="{{avatar}}" alt="">
+  <div class="ion-text-center ion-padding">
+    <h2 style="padding: 0px; margin: 0px;">
+      {{displayName}}
+      <ion-chip slot="end" (click)=" editname()">
+        <ion-label>Edit</ion-label>
+      </ion-chip>
+    </h2>
+    <ion-avatar>
+      <img src="{{avatar}}" alt="Your avatar">
+    </ion-avatar>
+    <ion-button shape="round" (click)="editimage()">Update avatar</ion-button>
   </div>
-  <div>
-    <h2 (click)="editname()">{{displayName}}</h2>
-  </div>
-  <div>
-    Tap on your pic or nickname to change it.
-  </div>
-  <div class="spacer" style="height: 10px;"></div>
-  <div>
-    <ion-button class="round outline" color="danger" (click)="logout()">Logout</ion-button>
+  <div class="ion-padding">
+    <ion-button style="height: 50px;" color="danger" fill="outline" shape="round" (click)="logout()" expand="block">Log
+      out
+    </ion-button>
   </div>
 </ion-content>
