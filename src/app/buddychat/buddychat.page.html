@@ -15,7 +15,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #content>
+<ion-content #content [scrollEvents]="true">
   <ion-list class="ion-no-padding" lines="none" *ngFor="let item of allmessages; let i = index">
     <ion-item *ngIf="item.sentby === buddy.uid" style="padding-right: 12%;" class="ion-float-left">
       <ion-avatar slot="start">

@@ -43,11 +43,15 @@ export class BuddychatPage implements OnInit {
       })
     })
   }
+
   addmessage() {
-    this.chatservice.addnewmessage(this.newmessage).then(() => {
-      this.content.scrollToBottom();
-      this.newmessage = '';
-    })
+    if (this.newmessage != "") {
+      this.chatservice.addnewmessage(this.newmessage).then(() => {
+        // this.content.scrollToBottom(500);
+        this.scrollto();
+        this.newmessage = '';
+      })
+    } else ;
   }
 
   ionViewDidEnter() {
@@ -57,7 +61,7 @@ export class BuddychatPage implements OnInit {
   scrollto() {
     setTimeout(() => {
       this.content.scrollToBottom();
-    }, 1000);
+    }, 500);
   }
 
   async sendPicMsg() {
