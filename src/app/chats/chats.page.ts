@@ -47,28 +47,6 @@ export class ChatsPage implements OnInit {
     this.navCtrl.navigateForward('/buddies')
   }
 
-  async accept(item) {
-    this.requestservice.acceptrequest(item).then(async () => {
-      let newalert = await this.alertCtrl.create({
-        header: 'Friend added',
-        subHeader: 'Tap on the friend to chat with him',
-        buttons: ['Okey']
-      });
-      newalert.present();
-    })
-    console.log(this.myfriends);
-
-  }
-
-  async ignore(item) {
-    this.requestservice.deleterequest(item).then(async () => {
-      let alert = await this.alertCtrl.create({
-        header: 'Request ignored'
-      });
-      alert.present();
-    })
-  }
-
   buddychat(buddy) {
     this.chatservice.initializebuddy(buddy);
     this.navCtrl.navigateForward('/buddychat');

@@ -9,9 +9,34 @@
 
 <ion-content>
   <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
-  <ion-list *ngFor=" let key of fillteredusers">
+  <ion-list>
     <!-- <ion-item-sliding > -->
-    <ion-item>
+    <ion-list-header>
+      My Requests
+    </ion-list-header>
+    <ion-item *ngFor=" let key of myrequest">
+      <ion-buttons slot="end">
+        <ion-button color="secondary" (click)="accept(key)" fill="outline" shape="round">
+          <ion-icon name="checkmark"></ion-icon>
+          Add
+        </ion-button>
+        <ion-button color="danger" (click)="ignore(key)" fill="outline" shape="round">
+          <ion-icon name="trash"></ion-icon>
+          Nope
+        </ion-button>
+      </ion-buttons>
+      <ion-avatar slot="start">
+        <img src="{{key.photoURL}}">
+      </ion-avatar>
+      <ion-label>
+        <h2> {{key.displayName}}</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-list-header>
+      Other friends
+    </ion-list-header>
+    <ion-item *ngFor=" let key of fillteredusers">
       <ion-button slot="end" color="primary" (click)="sendreq(key)" fill="outline" shape="round">
         <ion-icon name="person-add"></ion-icon>
         Add
