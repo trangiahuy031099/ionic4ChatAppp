@@ -1,29 +1,29 @@
 <ion-content>
-  <div class="ion-text-center ion-padding" style="padding-bottom: 0px;">
-    <img style="height: 100px; " src="../../assets/images/message.png">
-    <h3>Create your account !</h3>
-  </div>
-  <div class="ion-padding">
-    <ion-item>
-      <ion-label position="stacked">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="newuser.email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="newuser.password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Re-Password</ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Nick Name</ion-label>
-      <ion-input type="text" [(ngModel)]="newuser.displayName"></ion-input>
-    </ion-item>
-  </div>
-  <div class='ion-padding ion-text-center'>
-    <ion-button expand="block" style="height: 50px;" color="primary" (click)="signup()">Sign up</ion-button>
+	<div class="ion-text-center ion-padding" style="padding-bottom: 0px;">
+		<img style="height: 100px; " src="../../assets/images/message.png">
+		<h3>Create your account !</h3>
+	</div>
+	<div class="ion-padding">
+		<ion-item>
+			<ion-label position="stacked">Email</ion-label>
+			<ion-input type="email" [(ngModel)]="newuser.email"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="stacked">Password</ion-label>
+			<ion-input type="password" [(ngModel)]="newuser.password"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="stacked">Re-Password</ion-label>
+			<ion-input type="password"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="stacked">Nick Name</ion-label>
+			<ion-input type="text" [(ngModel)]="newuser.displayName"></ion-input>
+		</ion-item>
+	</div>
+	<div class='ion-padding ion-text-center'>
+		<ion-button expand="block" style="height: 50px;" color="primary" (click)="signup()">Sign up</ion-button>
 
-    <p><a (click)="goback()">Back to Login</a></p>
-  </div>
+		<p><a (click)="goback()">Back to Login</a></p>
+	</div>
 </ion-content>

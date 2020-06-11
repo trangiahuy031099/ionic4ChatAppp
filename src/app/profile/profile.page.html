@@ -3,19 +3,53 @@
     <ion-title class="ion-text-center">Your profile</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <div class="ion-text-center ion-padding">
-    <h2 style="padding: 0px; margin: 0px;">
-      {{displayName}}
-      <ion-chip slot="end" (click)=" editname()">
-        <ion-label>Edit</ion-label>
-      </ion-chip>
-    </h2>
-    <ion-avatar>
-      <img src="{{avatar}}" alt="Your avatar">
-    </ion-avatar>
-    <ion-button shape="round" (click)="editimage()">Update avatar</ion-button>
-  </div>
+<ion-content fullscreen>
+  <ion-card color="danger">
+    <div class="ion-text-center ion-padding">
+      <ion-avatar>
+        <img src="{{avatar}}" alt="Your avatar">
+      </ion-avatar>
+      <h2 style="padding: 0px; margin: 0px;">
+        {{displayName}}
+        <ion-chip slot="end" (click)="editname()">
+          <ion-label>Edit</ion-label>
+        </ion-chip>
+      </h2>
+      <ion-button shape="round" (click)="editimage()">Update avatar</ion-button>
+    </div>
+  </ion-card>
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start" style="width: 50px;height: 50px;">
+        <img src="https://i.ya-webdesign.com/images/notification-icon-png-11.png" alt="">
+      </ion-avatar>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+          <ion-label style="font-size: 20px;">Mute Notifications</ion-label>
+          </ion-col>
+          <ion-col text-right>
+          <ion-toggle name="kiwi" color="success"></ion-toggle>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-avatar slot="start" style="width: 50px;height: 50px;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTJXdPcqRXtbjKvsRn5SQMxbXjn8lwmIeDX3YgOmIx0TJpxRP-d&usqp=CAU" alt="">
+      </ion-avatar>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+          <ion-label style="font-size: 20px;">Dark Mode</ion-label>
+          </ion-col>
+          <ion-col text-right>
+          <ion-toggle name="kiwi" color="success" (click)="toggleDarkMode()"></ion-toggle>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
   <div class="ion-padding">
     <ion-button style="height: 50px;" color="danger" fill="outline" shape="round" (click)="logout()" expand="block">Log
       out

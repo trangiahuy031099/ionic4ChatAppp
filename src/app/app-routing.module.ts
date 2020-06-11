@@ -52,6 +52,7 @@ const routes: Routes = [
     path: 'groupinfo',
     loadChildren: () => import('./groupinfo/groupinfo.module').then( m => m.GroupinfoPageModule)
   }
+
 ];
 
 @NgModule({

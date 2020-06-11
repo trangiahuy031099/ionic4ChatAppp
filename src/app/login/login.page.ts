@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone } from '@angular/core';
 import { usercreads } from '../models/usercreads'
 import { AuthService } from '../services/auth/auth.service';
 import { NavController } from '@ionic/angular';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -11,9 +12,8 @@ export class LoginPage implements OnInit {
   credentials = {} as usercreads;
   constructor(
     public navCtrl: NavController,
-    public authservice: AuthService
+    public authservice: AuthService,
   ) { }
-
   ngOnInit() {
   }
   ionViewDidLoad() {
@@ -29,12 +29,10 @@ export class LoginPage implements OnInit {
         alert(res);
     });
   }
-
   passwordreset() {
     this.navCtrl.navigateForward('/passwordreset')
   }
   signup() {
     this.navCtrl.navigateForward('/signup')
   }
-
 }

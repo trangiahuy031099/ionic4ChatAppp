@@ -10,6 +10,7 @@
     <ion-buttons slot="end">
       <ion-button (click)="sendPicMsg()">
         <ion-icon name="camera"></ion-icon>
+        <ion-icon name="call-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -21,7 +22,8 @@
       <ion-avatar slot="start">
         <img src="{{buddy.photoURL}}">
       </ion-avatar>
-      <ion-label class="ion-text-wrap" id="friend">
+      <ion-label class="ion-text-wrap" id="friend"
+        style="border-radius: 15px !important;background-color: mediumaquamarine !important;">
         {{item.message}}
       </ion-label>
       <!-- <img src="{{item.message}}" > -->
@@ -30,7 +32,8 @@
       <ion-avatar slot="end">
         <img src="{{buddy.photoURL}}" alt="">
       </ion-avatar>
-      <ion-label class="ion-text-wrap" id="me">
+      <ion-label class="ion-text-wrap" id="me"
+        style="border-radius: 15px !important;background-color: dodgerblue !important;overflow-y: auto;">
         {{item.message}}
       </ion-label>
       <!-- <img src="{{item.message}}"> -->

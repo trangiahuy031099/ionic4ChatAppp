@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Events } from '@ionic/angular';
-import * as firebase  from 'firebase'
+import * as firebase  from 'firebase';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -8,6 +9,8 @@ export class ChatService {
   firebuddychats = firebase.database().ref('/buddychats')
   buddy: any;
   buddymessages = []
+  currentgroup: Array<any> = [];
+  currentgroupname;
   constructor(
     public events: Events
   ) { }
@@ -53,4 +56,20 @@ export class ChatService {
       this.events.publish('newmessage')
     })
   }
+  getintogroup(groupname) {
+    if(groupname != null) {
+      this.firebuddychats.child(firebase.auth().currentUser.uid).child(groupname).once('value' , (snapshot) => {
+        if(snapshot.val() != null) {
+          var temp = snapshot.val().members;
+          this.currentgroup = [];
+          for (var key in temp) {
+            this.currentgroup.push(temp[key]);
+          }
+          this.currentgroupname = groupname;
+          this.events.publish('gotintogroup');
+        }
+      })
+    }
+  }
+  
 }

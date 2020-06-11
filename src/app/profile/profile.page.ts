@@ -3,6 +3,7 @@ import { NavController, AlertController} from '@ionic/angular';
 import { ImghandlerService } from '../services/imghandler/imghandler.service';
 import { UserService } from '../services/user/user.service';
 import * as firebase from 'firebase';
+import {ThemeService} from '../services/theme/theme.service'
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -11,12 +12,15 @@ import * as firebase from 'firebase';
 export class ProfilePage implements OnInit {
   avatar: string;
   displayName: string;
+  email:string;
+  
   constructor(
     public navCtrl: NavController,
     public userservice: UserService,
     public zone: NgZone,
     public alertCtrl: AlertController,
-    public imghanler: ImghandlerService
+    public imghanler: ImghandlerService,
+    public themeService:ThemeService
   ) { }
 
   ngOnInit() {
@@ -39,7 +43,9 @@ export class ProfilePage implements OnInit {
       this.navCtrl.navigateRoot('login');
     })
   }
-
+  toggleDarkMode(){
+    this.themeService.toggleAppTheme()
+  }
   async editname() {
     let alert = await this.alertCtrl.create({
       header: 'Edit Nickname',

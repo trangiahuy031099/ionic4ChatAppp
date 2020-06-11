@@ -2,16 +2,25 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import { resolve } from 'url';
+import { first } from 'rxjs/operators'
+import {auth} from 'firebase/app'
+import { from } from 'rxjs';
+interface user {
+	displayName: string,
+	uid: string
+}
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
+  private user:user
   firebasedata = firebase.database().ref('chatuser');
   constructor(public afAuth: AngularFireAuth) { }
 
   adduser(newuser) {
     var promise = new Promise( (resolve , reject) => {
-      this.afAuth.auth.createUserWithEmailAndPassword(newuser.email , newuser.password).then( () => {
+      this.afAuth.auth.createUserWithEmailAndPassword(newuser.username , newuser.password).then( () => {
         this.afAuth.auth.currentUser.updateProfile({
           displayName: newuser.displayName,
           photoURL: ''
@@ -115,4 +124,43 @@ export class UserService {
     });
     return promise;
   }
+  setUser(user: user) {
+		this.user = user
+	}
+
+	getUsername(): string {
+		return this.user.displayName
+	}
+
+	reAuth(displayName: string, password: string) {
+		return this.afAuth.auth.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(displayName + '@codedamn.com', password))
+	}
+
+	updatePassword(newpassword: string) {
+		return this.afAuth.auth.currentUser.updatePassword(newpassword)
+	}
+
+	updateEmail(newemail: string) {
+		return this.afAuth.auth.currentUser.updateEmail(newemail + '@codedamn.com');
+	}
+  async isAuthenticated() {
+		if(this.user) return true
+
+		const user = await this.afAuth.authState.pipe(first()).toPromise();
+
+		if(user) {
+			this.setUser({
+				displayName: user.email.split('@')[0],
+				uid: user.uid
+			})
+
+			return true
+		}
+		return false
+	}
+	
+
+	getUID(): string {
+		return this.user.uid;
+	}
 }
