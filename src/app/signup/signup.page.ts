@@ -7,7 +7,7 @@ import { UserService } from '../services/user/user.service';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-  newuser= {
+  newuser = {
     email: '',
     password: '',
     displayName: ''

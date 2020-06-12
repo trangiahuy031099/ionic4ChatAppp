@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpModule } from '@angular/http'
+import { HttpModule } from '@angular/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -18,7 +18,6 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath  } from '@ionic-native/file-path/ngx';
 import { ImghandlerService } from './services/imghandler/imghandler.service';
 import { UserService } from './services/user/user.service';
-import {IonicStorageModule} from '@ionic/storage'
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,8 +31,7 @@ import {IonicStorageModule} from '@ionic/storage'
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     HttpModule,
-    AngularFireAuthModule,
-    IonicStorageModule
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,
