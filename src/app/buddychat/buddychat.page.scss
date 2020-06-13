@@ -13,3 +13,10 @@
 ion-label{
     margin: 1px;
 }
+.day{background: #eee; color: black;}
+@media (prefers-color-scheme:dark){
+    .day.dark-scheme {background:  #333; color: white;}
+}
+@media (prefers-color-scheme: light) {
+    .day.light-scheme   { background: white; color:  #000000; }
+}
