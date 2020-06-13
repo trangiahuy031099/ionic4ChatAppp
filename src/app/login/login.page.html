@@ -17,29 +17,15 @@
     <p class="ion-text-right">
       <small><a (click)="passwordreset()"> Forgot login details ? <b> Get Help </b></a></small>
     </p>
-    <ion-grid>
-      <ion-row>
-        <ion-col >
-          <ion-button style="height: 50px;" color="primary" (click)="signin()" expand="block">Login
-          </ion-button>
-        </ion-col>
-        <ion-col>
-        <ion-button style="height: 50px;" color="dark" (click)="signup()" expand="block">Sign up</ion-button>
-      </ion-col>
-      </ion-row>
-    </ion-grid>
-      <div class="ion-text-center ion-padding">
-        --On Countinue With--
-      </div>
-      <ion-button expand="block" (click)="authservice.FacebookAuth()">
-        <ion-icon name="logo-facebook"></ion-icon>Facebook
-      </ion-button>
-      <ion-button expand="block" color="danger" (click)="authservice.GoogleAuth()">
-        <ion-icon name="logo-google"></ion-icon>Google
-      </ion-button>
-      <p class="ion-text-center"><ins>Don't have a account?</ins></p>
-      
-    
+    <ion-button style="height: 50px;" color="primary" (click)="signin()" expand="block">Login
+    </ion-button>
+    <div class="ion-text-center ion-padding">
+      Login With
+      <a (click)="authservice.GoogleAuth()">Google <ion-icon name="logo-google"></ion-icon></a> |
+      <a (click)="authService.FacebookAuth()">Facebook <ion-icon name="logo-facebook"></ion-icon></a>
+    </div>
+    <p class="ion-text-center"><ins>Don't have a account?</ins></p>
+    <ion-button style="height: 50px;" color="success" (click)="signup()" expand="block">Sign up</ion-button>
 
   </div>
 </ion-content>
