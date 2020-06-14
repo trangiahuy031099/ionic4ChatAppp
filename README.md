@@ -1,6 +1,6 @@
 # ionic4ChatAppp
 # Setup
-  git clone https://github.com/kakahuy113/Productlist.git
+  git clone https://github.com/kakahuy113/ionic4ChatAppp.git
   cd productlist   
 # Install
   npm install
