@@ -2,7 +2,7 @@
 # Setup
 ```
   git clone https://github.com/kakahuy113/ionic4ChatAppp.git
-  cd productlist
+  cd ionic4ChatAppp
 ```
 # Install
 ```
