@@ -40,7 +40,7 @@ export class BuddiesPage implements OnInit {
   ngOnInit() {
   }
 
-  async accept(item) {
+  accept(item) {
     this.requestsservice.acceptrequest(item).then(async () => {
       let newalert = await this.alertCtrl.create({
         header: 'Friend added',
@@ -51,7 +51,7 @@ export class BuddiesPage implements OnInit {
     })
   }
 
-  async ignore(item) {
+  ignore(item) {
     this.requestsservice.deleterequest(item).then(async () => {
       let alert = await this.alertCtrl.create({
         header: 'Request ignored'
@@ -87,9 +87,7 @@ export class BuddiesPage implements OnInit {
       return;
     }
     else {
-      
       this.requestsservice.sendrequest(this.newrequest).then( async (res: any) => {
-        
       
           let successalert = await this.alertCtrl.create({
             header: 'Request sent',

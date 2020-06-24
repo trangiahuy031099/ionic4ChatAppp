@@ -55,7 +55,7 @@ export class RequestsService {
 
   acceptrequest(buddy) {
     var promise = new Promise( (resolve , reject) => {
-      this.myfriends = [];
+      this.myfriends = []
       this.firefriends.child(firebase.auth().currentUser.uid).push({
         uid: buddy.uid
       }).then( () => {
@@ -78,12 +78,8 @@ export class RequestsService {
     var promise = new Promise( (resolve , reject) => {
       this.firereq.child(firebase.auth().currentUser.uid).orderByChild('sender').equalTo(buddy.uid).once( 'value' , (snapshot) => {
         let somekey;
-        console.log(buddy.uid);
-        
-        for (var key in snapshot.val()) 
+        for (var key in snapshot.val())
           somekey = key
-        console.log(somekey);
-        
         this.firereq.child(firebase.auth().currentUser.uid).child(somekey).remove().then( () => {
           resolve(true);
         })

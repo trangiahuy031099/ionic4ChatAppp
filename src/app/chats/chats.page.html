@@ -18,25 +18,7 @@
 <ion-content class="ion-padding">
   <ion-searchbar></ion-searchbar>
   <ion-list>
-    <ion-list-header>Requests</ion-list-header>
-    <ion-item-sliding *ngFor="let item of myrequests">
-      <ion-item>
-        <ion-avatar item-left>
-          <img src="{{item.photoURL}}">
-        </ion-avatar>
-        <h4>{{item.displayName}}</h4>
-      </ion-item>
-      <ion-item-options>
-        <ion-button color="secondary" (click)="accept(item)">
-          <ion-icon name="checkmark"></ion-icon>
-          Add
-        </ion-button>
-        <ion-button color="danger">
-          <ion-icon name="trash"></ion-icon>
-          Nope
-        </ion-button>
-      </ion-item-options>
-    </ion-item-sliding>
+    
     <ion-list-header>
       Friends
     </ion-list-header>
