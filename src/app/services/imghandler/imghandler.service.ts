@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FileChooser } from '@ionic-native/file-chooser/ngx'
-import { File } from '@ionic-native/file'
-import { FilePath } from '@ionic-native/file-path';
+
 import * as firebase from 'firebase';
 @Injectable({
   providedIn: 'root'

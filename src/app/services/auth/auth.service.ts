@@ -4,6 +4,7 @@ import { usercreads } from '../../models/usercreads';
 import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AlertController } from '@ionic/angular';
 interface User {
   uid : string;
   email : string;
@@ -21,13 +22,20 @@ export class AuthService {
     public router:Router,
     public ngZone: NgZone,
     public afs: AngularFirestore,
+    public alertCtrl : AlertController
   ) { }
 
   login(credentials: usercreads) {
     var promise = new Promise( (resolve , reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(credentials.email , credentials.password).then( () => {
         resolve(true);
-      }).catch( (err) => {
+      }).catch(async (err) => {
+          let newalert = await this.alertCtrl.create({
+           header: 'Wrong!!!!',
+           subHeader: `${err.message}`,
+           buttons: ['Okey']
+         });
+         newalert.present();
         reject(err);
       });
     });

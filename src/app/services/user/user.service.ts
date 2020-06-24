@@ -6,7 +6,7 @@ import { resolve } from 'url';
   providedIn: 'root'
 })
 export class UserService {
-  firebasedata = firebase.database().ref('chatuser');
+  firebasedata = firebase.database().ref('/users');
   constructor(public afAuth: AngularFireAuth) { }
 
   adduser(newuser) {
@@ -53,7 +53,7 @@ export class UserService {
       }).then( () => {
         firebase.database().ref('/users/' + firebase.auth().currentUser.uid).update({
           displayName: this.afAuth.auth.currentUser.displayName,
-          photoUrl: imageurl,
+          photoURL: imageurl,
           uid: firebase.auth().currentUser.uid
         }).then( () => {
           resolve({ success: true });

@@ -2,11 +2,14 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
-      <ion-avatar style="height: 40px; width: 40px;">
-        <img src="{{buddy.photoURL}}">
-      </ion-avatar>
+      
     </ion-buttons>
-    <ion-title>{{buddy.displayName}}</ion-title>
+    <ion-title>
+      
+      <img src="{{buddy.photoURL}}" style="width: 20px; height: 20px; border-radius: 50%;">  
+     
+      {{buddy.displayName}}
+    </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="sendPicMsg()">
         <ion-icon name="camera"></ion-icon>
@@ -30,7 +33,7 @@
     </ion-item>
     <ion-item *ngIf="item.sentby !== buddy.uid" class="ion-float-right" style="padding-left: 12%;">
       <ion-avatar slot="end">
-        <img src="{{buddy.photoURL}}" alt="">
+        <img src="{{photoURL}}" alt="">
       </ion-avatar>
       <ion-label class="ion-text-wrap" id="me"
         style="border-radius: 15px !important;background-color: dodgerblue !important;overflow-y: auto;">

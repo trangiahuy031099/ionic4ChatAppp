@@ -20,6 +20,7 @@ export class ChatsPage implements OnInit {
     public requestservice: RequestsService,
     public alertCtrl: AlertController,
     public chatservice: ChatService,
+    public requestsservice: RequestsService,
     
   ) { }
 
@@ -37,8 +38,6 @@ export class ChatsPage implements OnInit {
     this.events.subscribe('friends', () => {
       this.myfriends = [];
       this.myfriends = this.requestservice.myfriends
-
-
     })
   }
 
@@ -55,5 +54,24 @@ export class ChatsPage implements OnInit {
     this.chatservice.initializebuddy(buddy);
     this.navCtrl.navigateForward('/buddychat');
   }
-  
+  async accept(item) {
+    this.requestsservice.acceptrequest(item).then(async () => {
+      let newalert = await this.alertCtrl.create({
+        header: 'Friend added',
+        subHeader: 'Tap on the friend to chat with him',
+        buttons: ['Okey']
+      });
+      newalert.present();
+    })
+  }
+
+  async ignore(item) {
+    this.requestsservice.deleterequest(item).then(async () => {
+      let alert = await this.alertCtrl.create({
+        header: 'Request ignored'
+      });
+      alert.present();
+    })
+  }
+
 }

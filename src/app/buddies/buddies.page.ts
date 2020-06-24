@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, Events } from '@ionic/angular';
 import { UserService } from '../services/user/user.service';
 import { connreq } from '../models/usercreads';
 import { RequestsService } from '../services/requests/requests.service';
 import * as firebase from 'firebase';
-import { Button } from 'protractor';
 @Component({
   selector: 'app-buddies',
   templateUrl: './buddies.page.html',
@@ -14,12 +13,13 @@ export class BuddiesPage implements OnInit {
   newrequest = {} as connreq;
   temparr = [];
   fillteredusers = [];
-  myrequest;
+  myrequests;
   constructor(
     public navCtrl: NavController,
     public userservice: UserService,
     public alertCtrl: AlertController,
-    public requestsservice: RequestsService
+    public requestsservice: RequestsService,
+    public events: Events,
   ) {
     this.userservice.getallusers().then((res: any) => {
       this.fillteredusers = res;
@@ -27,11 +27,19 @@ export class BuddiesPage implements OnInit {
 
     })
   }
-
-  ngOnInit() {
-    this.myrequest = this.requestsservice.userdetails;
-    console.log(this.myrequest)
+  ionViewWillEnter() {
+    this.requestsservice.getmyrequests();
+    this.events.subscribe('gotrequests', () => {
+      this.myrequests = this.requestsservice.userdetails;
+    })
   }
+
+  ionViewDidLeave() {
+    this.events.unsubscribe('gotrequests');
+  }
+  ngOnInit() {
+  }
+
   async accept(item) {
     this.requestsservice.acceptrequest(item).then(async () => {
       let newalert = await this.alertCtrl.create({
@@ -72,23 +80,26 @@ export class BuddiesPage implements OnInit {
     this.newrequest.recipient = recipient.uid;
     if (this.newrequest.sender === this.newrequest.recipient) {
       let alert = await this.alertCtrl.create({
-        header: 'You are aldready friend',
+        header: 'You can not add You',
         buttons: ['Ok']
       })
       alert.present();
+      return;
     }
     else {
-      let successalert = await this.alertCtrl.create({
-        header: 'Request sent',
-        subHeader: `Your request was sent to ${recipient.displayName}`,
-        buttons: ['Ok']
-      });
-      this.requestsservice.sendrequest(this.newrequest).then((res: any) => {
-        if (res.success) {
+      
+      this.requestsservice.sendrequest(this.newrequest).then( async (res: any) => {
+        
+      
+          let successalert = await this.alertCtrl.create({
+            header: 'Request sent',
+            subHeader: `Your request was sent to ${recipient.displayName}`,
+            buttons: ['Ok']
+          });
           successalert.present();
           let sentuser = this.fillteredusers.indexOf(recipient);
           this.fillteredusers.splice(sentuser, 1);
-        }
+        
       }).catch(async (err) => {
         let alert = await this.alertCtrl.create({
           message: `${err}`
