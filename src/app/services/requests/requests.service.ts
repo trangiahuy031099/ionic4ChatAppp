@@ -94,7 +94,7 @@ export class RequestsService {
 
   getmyfriends() {
     let friendsuid = [];
-    this,this.firefriends.child(firebase.auth().currentUser.uid).on( 'value' , (snapshot) => {
+    this.firefriends.child(firebase.auth().currentUser.uid).on( 'value' , (snapshot) => {
       let allfriends = snapshot.val();
       this.myfriends = [];
       for( var i in allfriends)

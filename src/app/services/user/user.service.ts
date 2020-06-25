@@ -7,6 +7,7 @@ import { resolve } from 'url';
 })
 export class UserService {
   firebasedata = firebase.database().ref('/users');
+  firefriends = firebase.database().ref('/friends');
   constructor(public afAuth: AngularFireAuth) { }
 
   adduser(newuser) {
@@ -104,9 +105,22 @@ export class UserService {
     var promise = new Promise( (resolve, reject) => {
       this.firebasedata.orderByChild('uid').once('value' , (snapshot) => {
         let userdata = snapshot.val();
+        let userLogin = firebase.auth().currentUser;
         let temparr = [];
+
+        // this.firefriends.child(firebase.auth().currentUser.uid).on( 'value' , (snapshot) => {
+        //   console.log(snapshot);
+          
+        // })
+
+        // console.log(firebase.auth().currentUser, Array.isArray(userdata))
+
+        // console.log("Uerlogin", userLogin)
+
         for (var key in userdata) {
-          temparr.push(userdata[key]);
+            if(userLogin.uid !== key) {
+              temparr.push(userdata[key]);
+            }
         }
         resolve(temparr);
       }).catch(err => {
