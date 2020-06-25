@@ -21,7 +21,7 @@ export class BuddiesPage implements OnInit {
     public requestsservice: RequestsService,
     public events: Events,
   ) {
-    this.userservice.getallusers().then((res: any) => {
+    this.userservice.getallfriend().then((res: any) => {
       this.fillteredusers = res;
       this.temparr = res;
 
