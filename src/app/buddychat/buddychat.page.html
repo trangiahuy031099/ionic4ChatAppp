@@ -2,12 +2,11 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
-      
+      <ion-avatar style="height: 40px; width: 40px;">
+        <img src="{{buddy.photoURL}}">
+      </ion-avatar>
     </ion-buttons>
     <ion-title>
-      
-      <img src="{{buddy.photoURL}}" style="width: 20px; height: 20px; border-radius: 50%;">  
-     
       {{buddy.displayName}}
     </ion-title>
     <ion-buttons slot="end">

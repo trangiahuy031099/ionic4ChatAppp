@@ -62,8 +62,8 @@
       <ion-item-options side="end">
         <ion-item-option color="light">
           <ion-buttons>
-            <ion-button shape="round">
-              <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
+            <ion-button shape="round" (click)="deletechat(item.uid)">
+              <ion-icon slot="icon-only"  color="danger" name="trash"></ion-icon>
             </ion-button>
             <ion-button shape="round" (click)='presentActionSheet()'>
               <ion-icon slot="icon-only" name="menu"></ion-icon>
