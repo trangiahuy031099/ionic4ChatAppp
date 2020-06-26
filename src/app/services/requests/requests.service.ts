@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Events, AlertController } from '@ionic/angular';
 import { connreq } from '../../models/usercreads';
 import { UserService } from '../user/user.service';
-import * as firebase from 'firebase'; 
+import * as firebase from 'firebase';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,18 +12,18 @@ export class RequestsService {
   userdetails;
   myfriends;
   constructor(
-    public userservice:UserService,
+    public userservice: UserService,
     public events: Events,
     public alertCtrl: AlertController
   ) { }
 
-  sendrequest(req : connreq) {
-    var promise = new Promise( (resolve , reject) => {
+  sendrequest(req: connreq) {
+    var promise = new Promise((resolve, reject) => {
       this.firereq.child(req.recipient).push({
         sender: req.sender
-      }).then( () => {
-        resolve( {sucess: true} );
-      }).catch( err => {
+      }).then(() => {
+        resolve({ sucess: true });
+      }).catch(err => {
         reject(err);
       })
     })
@@ -33,59 +33,59 @@ export class RequestsService {
   getmyrequests() {
     let allmyrequests;
     var myrequests = [];
-    this.firereq.child(firebase.auth().currentUser.uid).on('value' , (snapshot) => {
-      allmyrequests = snapshot.val();      
+    this.firereq.child(firebase.auth().currentUser.uid).on('value', (snapshot) => {
+      allmyrequests = snapshot.val();
       myrequests = [];
-      for( var i in allmyrequests) {
+      for (var i in allmyrequests) {
         myrequests.push(allmyrequests[i].sender);
       }
-      this.userservice.getallusers().then( (res:any) => {
+      this.userservice.getallusers().then((res: any) => {
         var allusers = res;
         this.userdetails = [];
         for (var j in myrequests)
           for (var key in allusers) {
-            if(myrequests[j] === allusers[key].uid) {
+            if (myrequests[j] === allusers[key].uid) {
               this.userdetails.push(allusers[key]);
             }
           }
-          this.events.publish('gotrequests');
+        this.events.publish('gotrequests');
       })
     })
   }
 
   acceptrequest(buddy) {
-    var promise = new Promise( (resolve , reject) => {
+    var promise = new Promise((resolve, reject) => {
       this.myfriends = []
       this.firefriends.child(firebase.auth().currentUser.uid).push({
         uid: buddy.uid
-      }).then( () => {
+      }).then(() => {
         this.firefriends.child(buddy.uid).push({
           uid: firebase.auth().currentUser.uid
-        }).then( () => {
-          this.deleterequest(buddy).then( () => {
+        }).then(() => {
+          this.deleterequest(buddy).then(() => {
             resolve(true);
           })
-        }).catch( err => {
+        }).catch(err => {
           reject(err);
         })
-      }).catch( err => {
+      }).catch(err => {
         reject(err);
       })
     });
     return promise
   }
   deleterequest(buddy) {
-    var promise = new Promise( (resolve , reject) => {
-      this.firereq.child(firebase.auth().currentUser.uid).orderByChild('sender').equalTo(buddy.uid).once( 'value' , (snapshot) => {
+    var promise = new Promise((resolve, reject) => {
+      this.firereq.child(firebase.auth().currentUser.uid).orderByChild('sender').equalTo(buddy.uid).once('value', (snapshot) => {
         let somekey;
         for (var key in snapshot.val())
           somekey = key
-        this.firereq.child(firebase.auth().currentUser.uid).child(somekey).remove().then( () => {
+        this.firereq.child(firebase.auth().currentUser.uid).child(somekey).remove().then(() => {
           resolve(true);
         })
-      }).then( () => {
+      }).then(() => {
 
-      }).catch( err => {
+      }).catch(err => {
         reject(err)
       })
     });
@@ -94,29 +94,70 @@ export class RequestsService {
 
   getmyfriends() {
     let friendsuid = [];
-    this.firefriends.child(firebase.auth().currentUser.uid).on( 'value' , (snapshot) => {
+    this.firefriends.child(firebase.auth().currentUser.uid).on('value', (snapshot) => {
       let allfriends = snapshot.val();
       this.myfriends = [];
-      for( var i in allfriends)
+      for (var i in allfriends)
         friendsuid.push(allfriends[i].uid);
 
-      this.userservice.getallusers().then( (users: any) => {
+      this.userservice.getallusers().then((users: any) => {
         this.myfriends = [];
-        for( var j in friendsuid)
+        for (var j in friendsuid)
           for (var key in users) {
-              if (friendsuid[j] === users[key].uid) {
-                this.myfriends.push(users[key]);
-              }
+            if (friendsuid[j] === users[key].uid) {
+              this.myfriends.push(users[key]);
+            }
           }
-          this.events.publish('friends');
-      }).catch( err => {
+        this.events.publish('friends');
+      }).catch(err => {
         this.alertCtrl.create({
           header: `${err}`
-        }).then( a => {
+        }).then(a => {
           a.present();
         })
-        
+
       })
     })
+  }
+  async deleteFriend(id) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Do u want to delete this friend? <br/> You can recoved it man!!!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.firefriends.child(firebase.auth().currentUser.uid).orderByChild('uid').on('value', (snapshot) => {
+              let temp;
+              temp = snapshot.val();
+              for (var tempkey in temp) {
+                if (temp[tempkey].uid == id) {
+                  this.firefriends.child(firebase.auth().currentUser.uid).child(tempkey).remove();
+                }
+              }
+            })
+            this.firefriends.child(id).orderByChild('uid').on('value', (snapshot) => {
+              let temp;
+              temp = snapshot.val();
+              for (var tempkey in temp) {
+                if (temp[tempkey].uid == firebase.auth().currentUser.uid) {
+                  this.firefriends.child(id).child(tempkey).remove();
+                }
+              }
+            })
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
   }
 }

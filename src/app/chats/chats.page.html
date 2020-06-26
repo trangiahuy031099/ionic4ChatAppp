@@ -17,17 +17,21 @@
 
 <ion-content class="ion-padding">
   <ion-searchbar></ion-searchbar>
-  <!-- <ion-list>
-    <ion-item *ngFor="let item of myfriends" (click)="buddychat(item)">
-      <ion-avatar item-left>
-        <img src="{{item.photoURL}}">
-      </ion-avatar>
-      <h3>{{item.displayName}}</h3>
-    </ion-item>
-  </ion-list> -->
   <ion-list>
     <ion-list-header>
       Friends
+    </ion-list-header>
+    <ion-item *ngFor="let item of myfriends">
+      <ion-avatar slot="start">
+        <img src="{{item.photoURL}}">
+      </ion-avatar>
+      <ion-label>
+        <h3>{{item.displayName}}</h3>
+      </ion-label>
+      <ion-button slot="end" color='danger' fill='outline' (click)='deleteFriend(item.uid)'>Delete</ion-button>
+    </ion-item>
+    <ion-list-header>
+      Conversations
     </ion-list-header>
     <ion-item-sliding *ngFor="let item of myfriends">
       <ion-item-options side="start">

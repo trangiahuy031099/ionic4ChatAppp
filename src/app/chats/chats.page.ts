@@ -13,6 +13,7 @@ export class ChatsPage implements OnInit {
   presence$;
   firebuddychats = firebase.database().ref('/buddychats')
 
+  firefriends = firebase.database().ref('/friends')
   constructor(
     public navCtrl: NavController,
     public events: Events,
@@ -20,9 +21,10 @@ export class ChatsPage implements OnInit {
     public alertCtrl: AlertController,
     public chatservice: ChatService,
     public requestsservice: RequestsService
-  ) {}
+  ) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
   ionViewWillEnter() {
     this.requestservice.getmyfriends();
     this.myfriends = [];
@@ -35,6 +37,9 @@ export class ChatsPage implements OnInit {
 
   ionViewDidLeave() {
     this.events.unsubscribe("friends");
+  }
+  addbuddy() {
+    this.navCtrl.navigateForward("/buddies");
   }
   async deletechat(id) {
     const alert = await this.alertCtrl.create({
@@ -51,7 +56,7 @@ export class ChatsPage implements OnInit {
         }, {
           text: 'Okay',
           handler: () => {
-            this.firebuddychats.child(firebase.auth().currentUser.uid).child(id).remove().then( () => {
+            this.firebuddychats.child(firebase.auth().currentUser.uid).child(id).remove().then(() => {
               console.log('It done');
             })
           }
@@ -60,11 +65,54 @@ export class ChatsPage implements OnInit {
     });
 
     await alert.present();
-    
+
   }
-  addbuddy() {
-    this.navCtrl.navigateForward("/buddies");
+  deleteFriend(id) {
+    this.requestservice.deleteFriend(id).then(() => {
+      console.log('Done!')
+    })
   }
+  // async deleteFriend(id) {
+  //   const alert = await this.alertCtrl.create({
+  //     header: 'Confirm!',
+  //     message: 'Do u want to delete this friend? <br/> You can recoved it man!!!',
+  //     buttons: [
+  //       {
+  //         text: 'Cancel',
+  //         role: 'cancel',
+  //         cssClass: 'secondary',
+  //         handler: (blah) => {
+  //           console.log('Confirm Cancel: blah');
+  //         }
+  //       }, {
+  //         text: 'Okay',
+  //         handler: () => {
+  //           this.firefriends.child(firebase.auth().currentUser.uid).on('value', (snapshot) => {
+  //             let temp;
+  //             temp = snapshot.val();
+  //             for (var tempkey in temp) {
+  //               if (temp[tempkey].uid == id) {
+  //                 this.firefriends.child(firebase.auth().currentUser.uid).child(tempkey).remove();
+  //               }
+  //             }
+  //           })
+  //           this.firefriends.child(id).on('value', (snapshot) => {
+  //             let temp;
+  //             temp = snapshot.val();
+  //             for (var tempkey in temp) {
+  //               if (temp[tempkey].uid == firebase.auth().currentUser.uid) {
+  //                 this.firefriends.child(id).child(tempkey).remove();
+  //               }
+  //             }
+  //           })
+  //         }
+  //       }
+  //     ]
+  //   });
+
+  //   await alert.present();
+
+  // }
 
   buddychat(buddy) {
     this.chatservice.initializebuddy(buddy);
